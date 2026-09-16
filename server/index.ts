@@ -8,13 +8,14 @@ const corsHeaders = {
 
 function createSSEResponse(min: number, max: number, intervalMs: number = 1000, roverId: number = 100) {
   let timer: ReturnType<typeof setInterval>;
-  
+  const textEncoder = new TextEncoder() ;
+
   const stream = new ReadableStream({
     start(controller) {
       timer = setInterval(() => {
         const randomValue = (Math.random() * (max - min) + min).toFixed(2);
         const data = JSON.stringify({ data: parseFloat(randomValue), rover_id: roverId });
-        controller.enqueue(new TextEncoder().encode(`data: ${data}\n\n`));
+        controller.enqueue(textEncoder.encode(`data: ${data}\n\n`));
       }, intervalMs);
     },
     cancel() {
@@ -45,11 +46,11 @@ const server = Bun.serve({
     if (url.pathname === "/") {
       return new Response("working perfectly fine ", { headers: corsHeaders });
     }
-    
+
     if (url.pathname === "/temp" || url.pathname === "/humd" || url.pathname === "/dist") {
       return createSSEResponse(50, 100, 1000, 100);
     }
-    
+
     if (url.pathname === "/video") {
       return new Response("", { headers: corsHeaders });
     }

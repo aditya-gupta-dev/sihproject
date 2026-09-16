@@ -5,9 +5,11 @@ import {
   RefreshCw, 
   Clock, 
   Trash2,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Map
 } from 'lucide-react';
 import { StreamConnectionState } from '../types/telemetry';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   roverId: number | null;

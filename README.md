@@ -1,3 +1,1 @@
-
-
-this is working K 
+BRUH LEAVE THIS PROJECT & START WORKING ON YOUR LIFE 
